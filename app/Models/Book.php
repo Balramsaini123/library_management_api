@@ -3,15 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+class Book extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, SoftDeletes, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -19,22 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone_no',
-        'dob',
-        'role',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
+        'title',
+        'description',
+        'price',
+        'published_date',
+        'author',
+        'ISBN',
+        'status',
+        'admin_id',
     ];
 
     /**
@@ -43,8 +34,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
         'uuid_column' => 'string',
     ];
 
@@ -57,8 +46,11 @@ class User extends Authenticatable
         });
     }
 
-    public function books()
+    /**
+     * The user that owns this book.
+     */
+    public function user()
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(User::class);
     }
 }

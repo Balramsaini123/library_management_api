@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\UserRoleEnum;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class AuthService
      */
     public function register(array $data)
     {
-        $data['role'] = $data['role'] ?? 3;
+        $data['role'] = $data['role'] ?? UserRoleEnum::USER->value;
         $data['password'] = Hash::make($data['password']);
 
         return $this->userRepository->create($data);
@@ -38,7 +39,9 @@ class AuthService
     public function login(array $credentials)
     {
         if (Auth::attempt($credentials)) {
-            return Auth::user()->createToken('login')->accessToken;
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            return $user->createToken('login')->accessToken;
         }
 
         return null;

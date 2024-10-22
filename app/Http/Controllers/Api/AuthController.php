@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     use JsonResponseTrait;
-    const USER_NOT_FOUND_MESSAGE = 'User not found';
     protected $authService;
 
 
@@ -122,7 +121,7 @@ class AuthController extends Controller
         try {
             $user = $this->authService->getUserByUuid($uuid);
             if (!$user) {
-                return $this->errorResponse(self::USER_NOT_FOUND_MESSAGE, 404);
+                return $this->errorResponse('messages.user.notfound', 404);
             }
 
             return $this->successResponse($user, 'messages.user.users', 200);
@@ -145,7 +144,7 @@ class AuthController extends Controller
         try {
             $user = $this->authService->getUserByUuid($uuid);
             if (!$user) {
-                return $this->errorResponse(self::USER_NOT_FOUND_MESSAGE, 404);
+                return $this->errorResponse('messages.user.notfound', 404);
             }
 
             $updateUser = $this->authService->updateUser($user, $request->validated());
@@ -168,7 +167,7 @@ class AuthController extends Controller
         try {
             $user = $this->authService->getUserByUuid($uuid);
             if (!$user) {
-                return $this->errorResponse(self::USER_NOT_FOUND_MESSAGE, 404);
+                return $this->errorResponse('messages.user.notfound', 404);
             }
 
             $this->authService->deleteUser($user);

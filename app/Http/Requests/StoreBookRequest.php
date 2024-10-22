@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class StoreBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,29 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:50',
-            'email' => 'required|string|email|max:50|unique:users',
-            'password' => 'required|string|min:6',
-            'phone_no' => 'required|string|max:20|unique:users',
-            'role' => 'nullable|in:1,2,3',
-            'dob' => 'nullable|date',
+            'title' => 'required|string|max:50',
+            'description' => 'required',
+            'author' => 'required|string|max:50',
+            'ISBN' => 'required|string|max:13|unique:books',
+            'price' => 'required',
+            'published_date' => 'required|date',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Title is required',
+            'title.max' => 'Title cannot exceed 50 characters',
+            'description.required' => 'Description is required',
+            'author.required' => 'Author is required',
+            'author.max' => 'Author cannot exceed 50 characters',
+            'ISBN.required' => 'ISBN is required',
+            'ISBN.unique' => 'ISBN already exists',
+            'price.required' => 'Price is required',
+            'price.numeric' => 'Price must be a number',
+            'published_date.required' => 'Published date is required',
+            'published_date.date' => 'Published date must be a valid date',
         ];
     }
 

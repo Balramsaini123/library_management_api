@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+const UUID_PLACEHOLDER = '{uuid}';
 
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -25,8 +23,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('users', [AuthController::class, 'usersList']);
-    Route::get('users/{uuid}', [AuthController::class, 'user']);
-    Route::put('users/{uuid}', [AuthController::class, 'updateUser']);
-    Route::delete('users/{uuid}', [AuthController::class, 'deleteUser']);
-    Route::get('users', [AuthController::class, 'usersList']);
+    Route::prefix('users')->group(function () {
+        Route::get(UUID_PLACEHOLDER, [AuthController::class, 'user']);
+        Route::put(UUID_PLACEHOLDER, [AuthController::class, 'updateUser']);
+        Route::delete(UUID_PLACEHOLDER, [AuthController::class, 'deleteUser']);
+    });
+    Route::post('book/store', [BookController::class, 'create']);
+    Route::get('books/search', [BookController::class, 'readAll']);
+    Route::put('book/update/{uuid}', [BookController::class, 'update']);
+    Route::delete('book/delete/{uuid}', [BookController::class, 'delete']);
+    Route::get('book/read/{uuid}', [BookController::class, 'read']);
+    Route::post('/books/import', [BookController::class, 'importBooks']);
+    Route::get('/books/export', [BookController::class, 'exportBooks']);
 });

@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use Illuminate\Support\Str;
-
 class UserRepository extends BaseRepository
 {
     protected $roleMapping = [
