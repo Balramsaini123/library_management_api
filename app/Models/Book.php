@@ -12,8 +12,8 @@ use Laravel\Scout\Searchable;
 class Book extends Model
 {
     use HasApiTokens;
-    use HasFactory;
     use Searchable;
+    use HasFactory;
     use SoftDeletes;
 
     /**
