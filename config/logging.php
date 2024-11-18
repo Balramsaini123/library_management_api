@@ -58,6 +58,21 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'book' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/book.log'),
+            'level' => 'info',
+        ],
+        'user' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/user.log'),
+            'level' => 'info',
+        ],
+        'borrowbook' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/borrowbook.log'),
+            'level' => 'info',
+        ],
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

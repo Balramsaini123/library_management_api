@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+
 class UserRepository extends BaseRepository
 {
     protected $roleMapping = [
@@ -13,7 +14,7 @@ class UserRepository extends BaseRepository
 
     public function __construct()
     {
-        $this->model = new User();
+        $this->model = new User;
     }
 
     /**
@@ -23,7 +24,7 @@ class UserRepository extends BaseRepository
      * name, email, and role. It maps the role name to its corresponding
      * value if applicable and formats the search query.
      *
-     * @param string $searchTerm The search term to search for users.
+     * @param  string  $searchTerm  The search term to search for users.
      * @return \Illuminate\Database\Eloquent\Collection The collection of users matching the search criteria.
      */
     public function searchUsers(string $searchTerm)
@@ -39,8 +40,8 @@ class UserRepository extends BaseRepository
     /**
      * Formats a search query to utilize full-text search.
      *
-     * @param string $searchTerm The search term to format.
-     * @param int|null $mappedRole The role value mapped from the role name, if applicable.
+     * @param  string  $searchTerm  The search term to format.
+     * @param  int|null  $mappedRole  The role value mapped from the role name, if applicable.
      * @return string The formatted search query.
      */
     private function formatSearchQuery($searchTerm, $mappedRole)
@@ -55,7 +56,7 @@ class UserRepository extends BaseRepository
     /**
      * Maps a role name to its corresponding value if applicable.
      *
-     * @param string $roleName The role name to map.
+     * @param  string  $roleName  The role name to map.
      * @return int|null The mapped role value, or null if the role name is not recognized.
      */
     private function mapRoleNameToValue($roleName)

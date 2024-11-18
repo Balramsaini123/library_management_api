@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookController;
+use App\Http\Controllers\Api\BorrowedBookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,4 +36,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('book/read/{uuid}', [BookController::class, 'read']);
     Route::post('/books/import', [BookController::class, 'importBooks']);
     Route::get('/books/export', [BookController::class, 'exportBooks']);
+
+    Route::post('borrow-book/{uuid}', [BorrowedBookController::class, 'borrowBook']);
+    Route::get('borrowed-books', [BorrowedBookController::class, 'getUserBorrowedBooks']);
+    Route::get('borrowed-books/{uuid}', [BorrowedBookController::class, 'getUsersByBook']);
+    Route::post('return-book/{uuid}', [BorrowedBookController::class, 'returnBook']);
+    Route::get('overdue-books', [BorrowedBookController::class, 'getOverdueBooks']);
+    Route::get('return-history', [BorrowedBookController::class, 'getUserReturnHistory']);
 });

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('published_date');
             $table->string('author', 50);
             $table->string('ISBN', 13)->unique();
-            $table->enum('status', [0,1])->default(1)->comment('0 = non-available, 1 = available');
+            $table->enum('status', [0, 1])->default(1)->comment('0 = non-available, 1 = available');
             $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

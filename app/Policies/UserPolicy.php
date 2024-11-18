@@ -2,12 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Enums\UserRoleEnum;
+use App\Models\User;
 
 class UserPolicy
 {
-
     public function accessAllRoutes(User $user)
     {
         return $user->role === UserRoleEnum::SUPERADMIN->value;

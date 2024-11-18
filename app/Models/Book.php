@@ -4,13 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 class Book extends Model
 {
-    use HasFactory, SoftDeletes, HasApiTokens;
+    use HasApiTokens;
+    use HasFactory;
+    use Searchable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -52,5 +56,15 @@ class Book extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'author' => $this->author,
+            'ISBN' => $this->ISBN,
+            'status' => $this->status,
+        ];
     }
 }

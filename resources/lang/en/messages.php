@@ -1,4 +1,5 @@
 <?php
+
 return [
     'user' => [
         'register' => 'User registered successfully.',
@@ -22,6 +23,14 @@ return [
         'delete' => 'Book deleted successfully',
         'import' => 'Books imported successfully',
         'export' => 'Books exported successfully',
+        'not_available' => 'Book is not available',
+        'borrowed' => 'Book borrowed successfully',
+        'returned' => 'Book returned successfully',
+        'not_borrowed' => 'Book not borrowed',
+        'borrowed_books' => 'Borrowed books retrieved successfully',
+        'return_history' => 'Return history retrieved successfully',
+        'overdue_books' => 'Overdue books retrieved successfully',
+        'not_overdue_books' => 'No overdue books',
     ],
 
     'error' => [

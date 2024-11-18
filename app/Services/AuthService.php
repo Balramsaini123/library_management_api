@@ -19,7 +19,7 @@ class AuthService
     /**
      * Register a new user.
      *
-     * @param array $data The user data to be registered.
+     * @param  array  $data  The user data to be registered.
      * @return mixed
      */
     public function register(array $data)
@@ -33,7 +33,7 @@ class AuthService
     /**
      * Attempt to login a user.
      *
-     * @param array $credentials The user credentials (email and password).
+     * @param  array  $credentials  The user credentials (email and password).
      * @return string|null The access token if the login is successful, null otherwise.
      */
     public function login(array $credentials)
@@ -41,6 +41,7 @@ class AuthService
         if (Auth::attempt($credentials)) {
             /** @var \App\Models\User $user */
             $user = Auth::user();
+
             return $user->createToken('login')->accessToken;
         }
 
@@ -50,7 +51,7 @@ class AuthService
     /**
      * Get all users, or search for users by the given search term.
      *
-     * @param string|null $searchTerm The search term to search for users.
+     * @param  string|null  $searchTerm  The search term to search for users.
      * @return \Illuminate\Database\Eloquent\Collection The collection of users.
      */
     public function getAllUsers($searchTerm = null)
@@ -65,7 +66,7 @@ class AuthService
     /**
      * Get a user by its UUID.
      *
-     * @param string $uuid The user UUID.
+     * @param  string  $uuid  The user UUID.
      * @return \App\Models\User|null The user if found, null otherwise.
      */
     public function getUserByUuid(string $uuid)
@@ -76,8 +77,8 @@ class AuthService
     /**
      * Update a user.
      *
-     * @param \App\Models\User $user The user to be updated.
-     * @param array $data The user data to be updated.
+     * @param  \App\Models\User  $user  The user to be updated.
+     * @param  array  $data  The user data to be updated.
      * @return \App\Models\User The updated user.
      */
     public function updateUser($user, array $data)
@@ -88,7 +89,7 @@ class AuthService
     /**
      * Delete a user.
      *
-     * @param mixed $user The user data to be deleted.
+     * @param  mixed  $user  The user data to be deleted.
      */
     public function deleteUser($user)
     {

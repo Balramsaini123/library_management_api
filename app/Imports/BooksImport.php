@@ -3,14 +3,13 @@
 namespace App\Imports;
 
 use App\Models\Book;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Illuminate\Support\Facades\Log;
 
 class BooksImport implements ToModel, WithHeadingRow
 {
-
     protected $adminId;
 
     public function __construct($adminId)
@@ -19,10 +18,8 @@ class BooksImport implements ToModel, WithHeadingRow
     }
 
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
 
@@ -41,6 +38,7 @@ class BooksImport implements ToModel, WithHeadingRow
         // If validation fails, return null to skip the row or handle the error
         if ($validator->fails()) {
             Log::error('Row validation failed', ['errors' => $validator->errors(), 'row' => $row]);
+
             return null;  // Skip this row if validation fails
         }
 

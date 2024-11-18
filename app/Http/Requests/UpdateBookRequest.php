@@ -23,11 +23,12 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         $uuid = $this->route('uuid');
+
         return [
             'title' => 'string|max:50',
             'description' => 'sometimes',
             'author' => 'string|max:50',
-            'ISBN' => 'string|max:13',Rule::unique('books')->ignore($uuid, 'uuid_column'), // Ensure ISBN is unique but ignore current book
+            'ISBN' => 'string|max:13', Rule::unique('books')->ignore($uuid, 'uuid_column'), // Ensure ISBN is unique but ignore current book
             'price' => 'sometimes|numeric',
             'published_date' => 'sometimes|date',
         ];

@@ -2,23 +2,23 @@
 
 namespace App\Repositories;
 
+use App\Exports\BooksExport;
+use App\Imports\BooksImport;
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\BooksImport;
-use App\Exports\BooksExport;
 
 class BookRepository extends BaseRepository
 {
     public function __construct()
     {
-        $this->model = new Book();
+        $this->model = new Book;
     }
 
     /**
      * Import books from a CSV file.
      *
-     * @param  string  $file    The uploaded file.
-     * @param  int     $adminId The admin ID of the user performing the import.
+     * @param  string  $file  The uploaded file.
+     * @param  int  $adminId  The admin ID of the user performing the import.
      * @return void
      */
     public function importBooks($file, $adminId)
@@ -38,9 +38,6 @@ class BookRepository extends BaseRepository
 
     public function searchBooks($searchTerm)
     {
-        return $this->model->whereRaw(
-            "to_tsvector('english', title || ' ' || author || ' ' || \"ISBN\" || ' ' || status) @@ plainto_tsquery('english', ?)",
-            [$searchTerm]
-        )->get();
+        return Book::search($searchTerm)->get();
     }
 }

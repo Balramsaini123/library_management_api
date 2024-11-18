@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/payment/overdue/{book_id}/{user_id}', [StripePaymentController::class, 'overduePayment'])->name('overdue.payment');
+Route::post('/payment/overdue/process', [StripePaymentController::class, 'processOverduePayment'])->name('overdue.payment.process');

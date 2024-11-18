@@ -23,6 +23,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         $uuid = $this->route('uuid');
+
         return [
             'name' => 'string|max:50',
             'email' => [
@@ -31,10 +32,10 @@ class UserUpdateRequest extends FormRequest
                 'max:50',
                 Rule::unique('users')->ignore($uuid, 'uuid_column'),
             ],
-            'password' => ['string','min:6'],
-            'phone_no' => ['string','max:20'],
-            'role' => ['nullable','in:1,2,3'],
-            'dob' => ['nullable','date'],
+            'password' => ['string', 'min:6'],
+            'phone_no' => ['string', 'max:20'],
+            'role' => ['nullable', 'in:1,2,3'],
+            'dob' => ['nullable', 'date'],
         ];
     }
 
